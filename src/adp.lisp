@@ -144,6 +144,9 @@ within a scribble file. This form returned a value that can be retrieved with AD
            (close ,stream-sym))))))
 
 (defmethod asdf:perform ((o asdf:load-op) (c scribble-source-file))
+  (let ((system (asdf:component-system c)))
+    (unless (typep system 'adp-system)
+      (error "The system is not a valid adp system. Did you forget to specify ':class' in your system definition?")))
   (let ((file (first (asdf:input-files o c))))
     (with-lisp-expressions-and-stream (in-package-expr in-readtable-expr stream) file
       (with-slots (default-readtable) c
