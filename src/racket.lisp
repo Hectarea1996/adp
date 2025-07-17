@@ -134,9 +134,6 @@
                          (when (it-endp vals-it)
                            (error "Expected a value after the keyword: ~s" key))
                          (let ((value (it-get vals-it)))
-                           (when (keywordp value)
-                             (error "Expected a value after the keyword ~s but found another keyword: ~s"
-                                    key value))
                            (list key value)))
                   into key-values
               else
